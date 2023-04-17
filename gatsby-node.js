@@ -7,6 +7,10 @@
 /**
  * @type {import('gatsby').GatsbyNode['createPages']}
  */
+
+const path = require(`path`)
+const { createFilePath } = require(`gatsby-source-filesystem`)
+
 exports.createPages = async ({ actions }) => {
   const { createPage } = actions
   createPage({
@@ -14,5 +18,20 @@ exports.createPages = async ({ actions }) => {
     component: require.resolve("./src/templates/using-dsg.js"),
     context: {},
     defer: true,
+  })
+}
+
+exports.onCreateWebpackConfig = ({ getConfig, actions }) => {
+  const output = getConfig().output || {}
+
+  actions.setWebpackConfig({
+    output,
+    resolve: {
+      alias: {
+        components: path.resolve(__dirname, "src/components"),
+        utils: path.resolve(__dirname, "src/utils"),
+        hooks: path.resolve(__dirname, "src/hooks"),
+      },
+    },
   })
 }
