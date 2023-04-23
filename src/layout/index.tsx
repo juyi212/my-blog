@@ -1,6 +1,9 @@
-import { Nav } from "components/nav"
-import useSiteMetadata from "hooks/useSiteMetaData"
 import React from "react"
+
+import NavBar from "components/nav"
+import useSiteMetadata from "hooks/useSiteMetaData"
+import { rhythm } from "../utils/typography"
+
 import "./index.scss"
 
 export const Layout = ({}) => {
@@ -8,22 +11,15 @@ export const Layout = ({}) => {
 
   return (
     <React.Fragment>
-      <Nav title={title} />
-      {/* <Head /> */}
-      {/* <Top title={title} location={location} rootPath={rootPath} /> */}
-      {/* <div
+      <NavBar title={title} />
+      <div
         style={{
           marginLeft: `auto`,
           marginRight: `auto`,
           maxWidth: rhythm(24),
-          padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
+          padding: `${rhythm(1.5)} 0`,
         }}
-      >
-        <ThemeSwitch />
-        <Header title={title} location={location} rootPath={rootPath} />
-        {children}
-        <Footer />
-      </div> */}
+      ></div>
     </React.Fragment>
   )
 }
