@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactNode } from "react"
 
 import NavBar from "components/nav"
 import useSiteMetadata from "hooks/useSiteMetaData"
@@ -6,11 +6,15 @@ import { rhythm } from "../utils/typography"
 
 import "./index.scss"
 
-export const Layout = ({}) => {
+interface LayoutProps {
+  children: ReactNode
+}
+
+export const Layout = ({ children }: LayoutProps) => {
   const { title } = useSiteMetadata()
 
   return (
-    <React.Fragment>
+    <>
       <NavBar title={title} />
       <div
         style={{
@@ -19,7 +23,9 @@ export const Layout = ({}) => {
           maxWidth: rhythm(24),
           padding: `${rhythm(1.5)} 0`,
         }}
-      ></div>
-    </React.Fragment>
+      >
+        {children}
+      </div>
+    </>
   )
 }
