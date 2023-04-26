@@ -35,6 +35,14 @@ export const Head = ({ description, lang, title }: any) => {
                 content: `website`,
               },
               {
+                property: "og:author",
+                content: data.site.siteMetadata.author.name,
+              },
+              {
+                property: "og:author",
+                content: data.site.siteMetadata.author.nickname,
+              },
+              {
                 name: `twitter:card`,
                 content: `summary`,
               },
@@ -63,7 +71,10 @@ const detailsQuery = graphql`
       siteMetadata {
         title
         description
-        author
+        author {
+          name
+          nickname
+        }
       }
     }
   }

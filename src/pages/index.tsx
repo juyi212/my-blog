@@ -1,13 +1,17 @@
 import Head from "components/head"
-import Intro from "components/intro"
+import Bio from "components/bio"
 import * as React from "react"
 import { Layout } from "../layout"
+import NavBar from "components/nav"
+import useSiteMetadata from "hooks/useSiteMetaData"
 
 const IndexPage = () => {
+  const { title } = useSiteMetadata()
   return (
     <Layout>
+      <NavBar title={title} />
       <Head />
-      <Intro />
+      <Bio />
     </Layout>
   )
 }

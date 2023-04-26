@@ -19,7 +19,17 @@
 const metaConfig = {
   title: "Ari",
   description: `Ari's Blog`,
-  author: "Ari",
+  author: {
+    name: `이주이`,
+    nickname: `아리`,
+    bio: {
+      role: `개발자`,
+      description: ["Frontend", "React", "Typescript"],
+      birth: "1996.06.25",
+      residence: "Seoul, South Korea",
+    },
+  },
+
   siteUrl: "https://gatsby-starter-apple.netlify.app",
   lang: "en",
   links: {

@@ -5,7 +5,6 @@ interface SiteMetaData {
     siteMetadata: {
       title: string
       description: string
-      author: string
     }
   }
 }
@@ -18,7 +17,6 @@ const useSiteMetadata = () => {
           siteMetadata {
             title
             description
-            author
           }
         }
       }

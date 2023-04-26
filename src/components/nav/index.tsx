@@ -1,6 +1,5 @@
 import React from "react"
 import { Link } from "gatsby"
-import { GitHubIcon } from "../social-share/index"
 
 import "./index.scss"
 
@@ -8,9 +7,16 @@ const NavBar = ({ title }: any) => {
   return (
     <div className="top">
       <Link to={`/`} className="link">
-        {title}
+        {title}.com
       </Link>
-      <GitHubIcon />
+      <div className="menu">
+        <Link to={`/posts`} className="link">
+          posts
+        </Link>
+        <Link to={`/about`} className="link">
+          about
+        </Link>
+      </div>
     </div>
   )
 }
