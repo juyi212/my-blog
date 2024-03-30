@@ -23,14 +23,23 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-.pnpm-debug.log*
 
 # local env files
-.env*.local
+.env
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+.env.preview
+.env.preview.local
 
 # vercel
 .vercel
 
+# contentlayer
+.contentlayer
+
 # typescript
-*.tsbuildinfo
-next-env.d.ts
+tsconfig.tsbuildinfo

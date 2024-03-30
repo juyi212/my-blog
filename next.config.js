@@ -1,6 +1,18 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
+const path = require('path');
+const { withContentlayer } = require('next-contentlayer');
 
-module.exports = nextConfig
+/** @type {import('next').NextConfig} */
+
+const nextConfig = {
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+  reactStrictMode: false,
+  swcMinify: false,
+  sassOptions: {
+    includePaths: [path.join(__dirname, 'styles')],
+  },
+  experimental: {
+    mdxRs: true,
+  },
+};
+
+module.exports = withContentlayer(nextConfig);
