@@ -4,58 +4,16 @@ import { serialize } from 'next-mdx-remote/serialize';
 import { MDXRemote, MDXRemoteSerializeResult } from 'next-mdx-remote';
 import styled from '@emotion/styled';
 import { useMDXComponent } from 'next-contentlayer/hooks';
-import markdownToHtml from '../../../lib/markdownHtml';
+import { allPosts as _allPosts } from '@/contentlayer/generated';
+import { InferGetStaticPropsType } from 'next';
 
-// import Callout from '../../../components/callout/Callout';
-
-interface PostType {
-  slug: string;
-  category: string[];
-  title: string;
-  date: string;
-  coverImage?: string;
-  content: string;
-}
-
-// interface CustomComponentProps {
-//   id?: string;
-//   style?: CSSProperties;
-// }
-
-const customComponent = {
-  // h1: (props: PropsWithChildren<CustomComponentProps>) => <Typography variant="h1" {...props} />,
-  // h2: (props: PropsWithChildren<CustomComponentProps>) => <Typography variant="h2" {...props} />,
-  // h3: (props: PropsWithChildren<CustomComponentProps>) => <Typography variant="h3" {...props} />,
-  // h4: (props: PropsWithChildren<CustomComponentProps>) => <Typography variant="h4" {...props} />,
-  // p: (props: PropsWithChildren<CustomComponentProps>) => {
-  //   return <Typography variant="body1" color="gray400" lineHeight={1.5} {...props} />;
-  // },
-  // em: (props: PropsWithChildren<CustomComponentProps>) => (
-  //   <Typography variant="body1" color="gray400" {...props} />
-  // ),
-  // blockquote: (props: PropsWithChildren<CustomComponentProps>) => (
-  //   <Callout>
-  //     <Callout.Description {...props} />
-  //   </Callout>
-  // ),
-  // Callout: ({ icon, children }: PropsWithChildren<{ icon: string }>) => (
-  //   <Callout>
-  //     <Callout.Icon>{icon}</Callout.Icon>
-  //     <Callout.Description>{children}</Callout.Description>
-  //   </Callout>
-  // ),
-};
-
-const Post = ({ post, source }: { post: PostType; source: MDXRemoteSerializeResult }) => {
-  console.log('source :', source);
+const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
+  const MDXComponent = useMDXComponent(post?.body.code || '');
 
   return (
     <>
-      {/* <Typography variant="h1">{post.title}</Typography> */}
-      {/* <div dangerouslySetInnerHTML={{ __html: html }} /> */}
-
       <PostContentContainer>
-        <MDXRemote {...source} />
+        <MDXComponent />
       </PostContentContainer>
     </>
   );
@@ -114,8 +72,8 @@ const PostContentContainer = styled.section`
     margin-right: 0.25rem;
     border-radius: 5px;
     font-size: ${({ theme }) => theme.fontSize.NORMAL};
-    // color: ${({ theme }) => theme.color.main800};
-    // background-color: ${({ theme }) => theme.color.main50};
+    color: ${({ theme }) => theme.color.main800};
+    background-color: ${({ theme }) => theme.color.main50};
   }
 
   th {
@@ -160,10 +118,7 @@ const PostContentContainer = styled.section`
     padding: 2rem 2rem 2rem 2.5rem;
     border-left: ${({ theme }) => `5px solid ${theme.color.main}`};
     border-radius: 5px;
-    background-color: ${({ theme }) => {
-      console.log('theme :', theme);
-      return theme.color.background3;
-    }};
+    background-color: ${({ theme }) => theme.color.background3};
   }
 `;
 
@@ -176,29 +131,13 @@ export async function getStaticProps({
     slug: string;
   };
 }) {
-  const post = getPostBySlug(params.slug, [
-    'title',
-    'slug',
-    'description',
-    'date',
-    'lastmod',
-    'weight',
-    'content',
-    'fileName',
-  ]);
-  console.log('post', post);
-  const content = await markdownToHtml(post.content || '');
-  const mdxSource = await serialize(post.content);
-  // console.log('content :', content);
-  console.log('mdxSource', mdxSource);
+  const postId = params.slug || '';
+
+  const post = _allPosts.find((post: any) => post.id === postId);
 
   return {
     props: {
-      post: {
-        ...post,
-      },
-      // source: content,
-      source: mdxSource,
+      post,
     },
   };
 }

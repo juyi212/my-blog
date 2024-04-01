@@ -50,7 +50,6 @@ export const lightThemePalette = generateVariablePalette({
   ...lightThemeScheme,
   ...palette,
 });
-console.log('lightThemePalette :', lightThemePalette);
 
 export const darkThemeVariables = generateCSSVariablePalette({
   ...darkThemeScheme,

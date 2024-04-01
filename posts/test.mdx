@@ -1,0 +1,50 @@
+---
+title: 블로그 Test 글
+description: 블로그 Test 글
+createdAt: 2024-04-01
+thumbnail: ''
+---
+
+안녕하세요!
+
+## 1. 글
+
+> [TEST](https://yiyb-blog.vercel.app/posts/nextjs-contentlayer-blog)
+
+<br />
+
+방법은 간단합니다.
+
+> `fields`는 정적 필드, `computedFields`는 동적 필드라고 생각하시면 됩니다.
+
+```typescript
+import { defineDocumentType } from 'contentlayer/source-files';
+
+export const Post = defineDocumentType(() => ({
+  // ....
+  computedFields: {
+    category: {
+      type: 'string',
+      resolve: (post) => {
+        const [category] = post._raw.flattenedPath.split('/');
+
+        return category;
+      },
+    },
+  },
+}));
+```
+
+![블로그 메인](/images/posts/blog/improve-posts-directory-and-images/blog-main.png)
+
+이번
+
+## 2.
+
+<br />
+
+## 3. 마치며
+
+<br />
+
+이상으로 글을 마치겠습니다. 글 읽어주셔서 감사합니다!
