@@ -1,50 +1,49 @@
 ---
-title: 블로그 Test 글
-description: 블로그 Test 글
-createdAt: 2024-04-01
+title: Test글
+description: Test글
+createdAt: 2024-02-13
 thumbnail: ''
 ---
 
-안녕하세요!
+## 1. 글 파일
 
-## 1. 글
+> [ㅎㅎ](https://yiyb-blog.vercel.app/posts/nextjs-contentlayer-blog)
 
-> [TEST](https://yiyb-blog.vercel.app/posts/nextjs-contentlayer-blog)
+해당 블로그는 [contentlayer](https://contentlayer.dev)라는 도구를 사용해서 만든 블로그인데요. contentlayer 설정 파일에서 마크다운 글 파일들이 위치할 폴더를 지정할 수 있습니다.
 
-<br />
+![기존 posts 폴더 구조](/images/posts/blog/improve-posts-directory-and-images/original-posts-directory.png)
 
-방법은 간단합니다.
-
-> `fields`는 정적 필드, `computedFields`는 동적 필드라고 생각하시면 됩니다.
+> 관련 코드파일 [바로가기](https://www.naver.com)
 
 ```typescript
-import { defineDocumentType } from 'contentlayer/source-files';
-
 export const Post = defineDocumentType(() => ({
-  // ....
-  computedFields: {
-    category: {
+  name: 'Post',
+  contentType: 'mdx',
+  filePathPattern: `**/*.mdx`,
+  fields: {
+    title: {
       type: 'string',
-      resolve: (post) => {
-        const [category] = post._raw.flattenedPath.split('/');
-
-        return category;
-      },
+      required: true,
+    },
+    description: {
+      type: 'string',
+      required: true,
+    },
+    thumbnail: {
+      type: 'string',
+      required: true,
+    },
+    createdAt: {
+      type: 'date',
+      required: true,
+    },
+    updatedAt: {
+      type: 'date',
+      required: false,
     },
   },
-}));
 ```
 
-![블로그 메인](/images/posts/blog/improve-posts-directory-and-images/blog-main.png)
+`posts/TypeScript` `tsconfig.mdx`
 
-이번
-
-## 2.
-
-<br />
-
-## 3. 마치며
-
-<br />
-
-이상으로 글을 마치겠습니다. 글 읽어주셔서 감사합니다!
+![test_image](/images/test_image.png)

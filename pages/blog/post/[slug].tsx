@@ -6,6 +6,20 @@ import styled from '@emotion/styled';
 import { useMDXComponent } from 'next-contentlayer/hooks';
 import { allPosts as _allPosts } from '@/contentlayer/generated';
 import { InferGetStaticPropsType } from 'next';
+import { ImgHTMLAttributes } from 'react';
+import Image, { ImageProps } from 'next/image';
+
+const ImageComponent = (attrs: ImgHTMLAttributes<HTMLImageElement>) => {
+  console.log('attrs :', attrs);
+  if (!attrs.src || !attrs.alt)
+    throw new Error("Necessary attributes in <img> tags: 'src', 'alt', 'width', 'height'");
+
+  return <img src={attrs.src} alt={'asdfasdf'} width={'100%'} />;
+};
+
+const components = {
+  img: ImageComponent,
+};
 
 const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   const MDXComponent = useMDXComponent(post?.body.code || '');
@@ -13,7 +27,7 @@ const Post = ({ post }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (
     <>
       <PostContentContainer>
-        <MDXComponent />
+        <MDXComponent components={components} />
       </PostContentContainer>
     </>
   );
@@ -34,7 +48,6 @@ const PostContentContainer = styled.section`
 
   a {
     font-size: ${({ theme }) => theme.fontSize.MEDIUM};
-
     color: ${({ theme }) => theme.color.main};
     line-height: 1.7;
     word-break: break-all;
@@ -69,8 +82,8 @@ const PostContentContainer = styled.section`
 
   code:not([data-language]) {
     padding: 0.25rem 0.75rem;
-    margin-right: 0.25rem;
     border-radius: 5px;
+    margin-right: 0.25rem;
     font-size: ${({ theme }) => theme.fontSize.NORMAL};
     color: ${({ theme }) => theme.color.main800};
     background-color: ${({ theme }) => theme.color.main50};
@@ -114,10 +127,10 @@ const PostContentContainer = styled.section`
   }
 
   blockquote {
-    margin: 1.5rem 0;
-    padding: 2rem 2rem 2rem 2.5rem;
+    padding: 2rem;
     border-left: ${({ theme }) => `5px solid ${theme.color.main}`};
     border-radius: 5px;
+    margin: 1.5rem 0;
     background-color: ${({ theme }) => theme.color.background3};
   }
 `;
